@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3079769065926173921}
   - component: {fileID: 7651714515953673945}
   m_Layer: 0
-  m_Name: Cloud
+  m_Name: CloudSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
