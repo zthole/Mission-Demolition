@@ -13,12 +13,12 @@ public class RigidbodySleep : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
     }
 
-    //Fixed Update()
-    //{
-        //if (sleepCountdown > 0)
-        //{
-            //rigid.Sleep();
-            //sleepCountdown--;
-        //}
-    //}
+    void Update()
+    {
+        if (sleepCountdown > 0)
+        {
+            rigid.Sleep();
+            sleepCountdown--;
+        }
+    }
 }
