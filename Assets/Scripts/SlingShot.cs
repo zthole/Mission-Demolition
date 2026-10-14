@@ -6,7 +6,8 @@ public class SlingShot : MonoBehaviour
 {
     [Header("Set in Inspector")]
     public GameObject prefabProjectile;
-    public float velocityMult = 8f;
+    public float velocityMult = 10f;
+    public GameObject projLinePrefab;
 
     [Header("Set Dynamicaly")]
     public GameObject launchPoint;
@@ -54,6 +55,8 @@ public class SlingShot : MonoBehaviour
         projectileRigidbody.isKinematic = false;
         projectileRigidbody.velocity = -mouseDelta * velocityMult;
         FollowCam.POI = projectile;
+        // add ProjectileLine to Projectile
+        Instantiate<GameObject>(projLinePrefab, projectile.transform);
         projectile = null;
       }
     }
