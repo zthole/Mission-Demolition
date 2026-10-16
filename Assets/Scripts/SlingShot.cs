@@ -4,17 +4,27 @@ using UnityEngine;
 
 public class SlingShot : MonoBehaviour
 {
-    [Header("Set in Inspector")]
+    [Header("Inscribed")]
     public GameObject prefabProjectile;
     public float velocityMult = 10f;
     public GameObject projLinePrefab;
+    public float bandWidth = 0.15f;
+    public Material bandMat;
 
-    [Header("Set Dynamicaly")]
+    [Header("Dynamic")]
     public GameObject launchPoint;
     public Vector3 launchPos;
     public GameObject projectile;
     public bool aimingMode;
     private Rigidbody projectileRigidbody;
+
+    private Transform rightArm;
+    private Transform leftArm;
+    // private LineRenderer leftBand;
+    // private LineRenderer rightBand;
+
+    private LineRenderer slingshotBand;
+    
 
     void Awake()
     {
@@ -23,6 +33,31 @@ public class SlingShot : MonoBehaviour
         launchPoint = launchPointTrans.gameObject;    
         launchPoint.SetActive(false);
         launchPos = launchPointTrans.position;
+
+        leftArm = transform.Find("LeftArm");
+        rightArm = transform.Find("RightArm");
+
+        slingshotBand = gameObject.AddComponent<LineRenderer>();
+        slingshotBand.material = bandMat;
+        slingshotBand.startWidth = slingshotBand.endWidth = bandWidth;
+
+        slingshotBand.numCapVertices = 4;
+        slingshotBand.useWorldSpace = true;
+        slingshotBand.positionCount = 3;
+
+        // leftBand = MakeBandSegment("LeftBand", bandMat);
+        // rightBand = MakeBandSegment("RightBand", bandMat);
+        UpdateBand(launchPos);
+    }
+
+    Vector3 ArmTip(Transform arm) {
+      return arm.position + arm.up * arm.lossyScale.y;
+    }
+
+    void UpdateBand(Vector3 projPos) {
+      slingshotBand.SetPosition(0, ArmTip(leftArm));
+      slingshotBand.SetPosition(1, projPos);
+      slingshotBand.SetPosition(2, ArmTip(rightArm));
     }
 
     void Update()
@@ -48,6 +83,7 @@ public class SlingShot : MonoBehaviour
 
       Vector3 projPos = launchPos + mouseDelta;
       projectile.transform.position = projPos;
+      UpdateBand(projPos);
 
       if (Input.GetMouseButtonUp(0))
       {
@@ -58,6 +94,7 @@ public class SlingShot : MonoBehaviour
         // add ProjectileLine to Projectile
         Instantiate<GameObject>(projLinePrefab, projectile.transform);
         projectile = null;
+        UpdateBand(launchPos);
       }
     }
 
