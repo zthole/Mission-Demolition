@@ -94,6 +94,7 @@ public class SlingShot : MonoBehaviour
         // add ProjectileLine to Projectile
         Instantiate<GameObject>(projLinePrefab, projectile.transform);
         projectile = null;
+        MissionDemolition.SHOT_FIRED();
         UpdateBand(launchPos);
       }
     }
