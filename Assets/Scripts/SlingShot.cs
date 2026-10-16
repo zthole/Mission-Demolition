@@ -90,6 +90,8 @@ public class SlingShot : MonoBehaviour
         aimingMode = false;
         projectileRigidbody.isKinematic = false;
         projectileRigidbody.velocity = -mouseDelta * velocityMult;
+        // Switch to slingshot view immediately before setting POI
+        FollowCam.SWITCH_VIEW(FollowCam.eView.slingshot);
         FollowCam.POI = projectile;
         // add ProjectileLine to Projectile
         Instantiate<GameObject>(projLinePrefab, projectile.transform);
