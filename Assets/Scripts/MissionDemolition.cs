@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum GameMode {
     idle,
@@ -29,7 +30,7 @@ public class MissionDemolition : MonoBehaviour
     void Start() {
         S = this; // Define the singleton
 
-        level = 0;
+        level = 4;
         shotsTaken = 0;
         levelMax = castles.Length;
         StartLevel();
@@ -81,10 +82,18 @@ public class MissionDemolition : MonoBehaviour
 
     void NextLevel() {
         level++;
-        if(level == levelMax) {
-            level = 0;
-            shotsTaken = 0;
+
+        // Check if all castles have been completed
+        if (level >= levelMax) {
+            // Tell the start screen to show the completion message
+            PlayerPrefs.SetInt("GameOver", 1);
+            PlayerPrefs.Save();
+
+            // Return to the start screen
+            SceneManager.LoadScene("_Scene_1");
+            return;
         }
+
         StartLevel();
     }
 

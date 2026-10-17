@@ -1,18 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class StartScreen : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public Text gameOverText;
+
+    // Start the game
+    public void Start() {
+        // Hide Game Over initially
+        gameOverText.gameObject.SetActive(false);
+        // Check if the player lost the game
+        if (PlayerPrefs.GetInt("GameOver", 0) == 1) {
+            gameOverText.gameObject.SetActive(true);
+
+            // Reset the Game Over flag
+            PlayerPrefs.SetInt("GameOver", 0);
+            PlayerPrefs.Save();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void PlayGame() {
+        SceneManager.LoadScene("_Scene_0");
     }
 }
