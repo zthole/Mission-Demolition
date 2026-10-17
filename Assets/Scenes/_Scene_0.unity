@@ -937,8 +937,8 @@ MonoBehaviour:
   castles:
   - {fileID: 7607174606841422637, guid: d68ce3147c39af94191b441f573ca19c, type: 3}
   - {fileID: 7607174606841422637, guid: fcb9762302d4a4d40b0aef52d387f5b5, type: 3}
-  - {fileID: 7607174606841422637, guid: fbdce425b6a91be4c9bf3ba417d163f2, type: 3}
   - {fileID: 7607174606841422637, guid: 653b9e06ecf1f7a428d317936f6ad6ce, type: 3}
+  - {fileID: 7607174606841422637, guid: fbdce425b6a91be4c9bf3ba417d163f2, type: 3}
   - {fileID: 7607174606841422637, guid: 8b8a4c1538ec68641b1722d17203d736, type: 3}
   level: 0
   levelMax: 0
