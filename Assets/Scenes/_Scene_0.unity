@@ -1003,6 +1003,7 @@ MonoBehaviour:
   launchPos: {x: 0, y: 0, z: 0}
   projectile: {fileID: 0}
   aimingMode: 0
+  snapSound: {fileID: 8300000, guid: f9cf8da94240b204caee5e7fb046dd2b, type: 3}
 --- !u!1 &1728783786
 GameObject:
   m_ObjectHideFlags: 0

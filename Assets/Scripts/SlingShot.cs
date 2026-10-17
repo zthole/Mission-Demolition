@@ -17,37 +17,41 @@ public class SlingShot : MonoBehaviour
     public GameObject projectile;
     public bool aimingMode;
     private Rigidbody projectileRigidbody;
-
     private Transform rightArm;
     private Transform leftArm;
-    // private LineRenderer leftBand;
-    // private LineRenderer rightBand;
-
     private LineRenderer slingshotBand;
+
+    [Header("Audio")]
+    public AudioClip snapSound;
+    private AudioSource audioSource;
     
 
     void Awake()
     {
-        Transform launchPointTrans = transform.Find("LaunchPoint");
+      audioSource = GetComponent<AudioSource>();
 
-        launchPoint = launchPointTrans.gameObject;    
-        launchPoint.SetActive(false);
-        launchPos = launchPointTrans.position;
+      if(audioSource == null) {
+        audioSource = gameObject.AddComponent<AudioSource>();
+      }
 
-        leftArm = transform.Find("LeftArm");
-        rightArm = transform.Find("RightArm");
+      Transform launchPointTrans = transform.Find("LaunchPoint");
 
-        slingshotBand = gameObject.AddComponent<LineRenderer>();
-        slingshotBand.material = bandMat;
-        slingshotBand.startWidth = slingshotBand.endWidth = bandWidth;
+      launchPoint = launchPointTrans.gameObject;    
+      launchPoint.SetActive(false);
+      launchPos = launchPointTrans.position;
 
-        slingshotBand.numCapVertices = 4;
-        slingshotBand.useWorldSpace = true;
-        slingshotBand.positionCount = 3;
+      leftArm = transform.Find("LeftArm");
+      rightArm = transform.Find("RightArm");
 
-        // leftBand = MakeBandSegment("LeftBand", bandMat);
-        // rightBand = MakeBandSegment("RightBand", bandMat);
-        UpdateBand(launchPos);
+      slingshotBand = gameObject.AddComponent<LineRenderer>();
+      slingshotBand.material = bandMat;
+      slingshotBand.startWidth = slingshotBand.endWidth = bandWidth;
+
+      slingshotBand.numCapVertices = 4;
+      slingshotBand.useWorldSpace = true;
+      slingshotBand.positionCount = 3;
+
+      UpdateBand(launchPos);
     }
 
     Vector3 ArmTip(Transform arm) {
@@ -90,6 +94,10 @@ public class SlingShot : MonoBehaviour
         aimingMode = false;
         projectileRigidbody.isKinematic = false;
         projectileRigidbody.velocity = -mouseDelta * velocityMult;
+        // Play the rubber-band snapping sound
+        if(snapSound != null) {
+          audioSource.PlayOneShot(snapSound);
+        }
         // Switch to slingshot view immediately before setting POI
         FollowCam.SWITCH_VIEW(FollowCam.eView.slingshot);
         FollowCam.POI = projectile;

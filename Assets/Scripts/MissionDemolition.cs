@@ -30,7 +30,7 @@ public class MissionDemolition : MonoBehaviour
     void Start() {
         S = this; // Define the singleton
 
-        level = 4;
+        level = 0;
         shotsTaken = 0;
         levelMax = castles.Length;
         StartLevel();
