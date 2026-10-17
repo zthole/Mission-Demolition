@@ -85,6 +85,9 @@ public class MissionDemolition : MonoBehaviour
 
         // Check if all castles have been completed
         if (level >= levelMax) {
+            // Save the total shots if this is a new record
+            HighScore.SaveScore(shotsTaken);
+
             // Tell the start screen to show the completion message
             PlayerPrefs.SetInt("GameOver", 1);
             PlayerPrefs.Save();
@@ -93,7 +96,7 @@ public class MissionDemolition : MonoBehaviour
             SceneManager.LoadScene("_Scene_1");
             return;
         }
-
+        // Load next castle without resetting the shot count
         StartLevel();
     }
 
